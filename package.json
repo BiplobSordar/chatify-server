@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "This is the backend of the chatify-client",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js"
