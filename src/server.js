@@ -12,20 +12,20 @@ import { app, server } from "./lib/socket.js";
 const __dirname = path.resolve();
 
 const PORT = ENV.PORT || 3000;
-
+connectDB();
 app.use(express.json({ limit: "5mb" }));
 const allowedOrigins = [
-  process.env.CLIENT_URL?.replace(/\/$/, ""), 
+  process.env.CLIENT_URL?.replace(/\/$/, ""),
 ];
 
 
 app.use(
   cors({
     origin: (origin, callback) => {
-     
+
       if (!origin) return callback(null, true);
 
-    
+
       const cleanOrigin = origin.replace(/\/$/, "");
 
       if (allowedOrigins.includes(cleanOrigin) || cleanOrigin.endsWith(".vercel.app")) {
@@ -50,5 +50,5 @@ app.get("/", (req, res) => {
 });
 server.listen(PORT, () => {
   console.log("Server running on port: " + PORT);
-  connectDB();
+
 });
