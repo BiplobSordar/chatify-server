@@ -9,7 +9,15 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: [ENV.CLIENT_URL],
+    origin: (origin, callback) => {
+     
+      if (!origin) return callback(null, true);
+      if (origin.endsWith(".vercel.app") || origin === process.env.CLIENT_URL?.replace(/\/$/, "")) {
+        return callback(null, true);
+      }
+      return callback(new Error("Socket.IO CORS blocked"));
+    },
+    methods: ["GET", "POST"],
     credentials: true,
   },
 });
